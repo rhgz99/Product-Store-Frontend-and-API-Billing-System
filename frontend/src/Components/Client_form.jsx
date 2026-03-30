@@ -24,6 +24,7 @@ const Client_form = () => {
 
   return (
     <section className="client-form">
+      <h2>Add client testing</h2>
       {error ? (
         "Error: reload the page"
       ) : (
