@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const Products_form = () => {
+  const [client, setClient] = useState([])
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -17,7 +18,7 @@ const Products_form = () => {
         }),
       });
       const data = await response.json();
-      console.log(data);
+      setClient(data)
     } catch (error) {
       setError(error);
     }
@@ -36,6 +37,7 @@ const Products_form = () => {
         <button type="submit">Add Product</button>
       </form>
       {error && "Error: please try again"}
+      {client && 'Product Created'}
     </section>
   );
 };

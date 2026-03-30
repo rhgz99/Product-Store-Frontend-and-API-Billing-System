@@ -1,11 +1,15 @@
-import Client_form from "./Components/Client_form";
-import Products_form from "./Components/Products_form";
+import Cart from "./Components/Cart";
+import ClientForm from "./Components/ClientForm";
+import ProductCard from "./Components/ProductList";
+import ProductsForm from "./Components/ProductsForm";
 
 const App = () => {
   return (
     <section className="app">
-      <Client_form />
-      <Products_form />
+      <ClientForm />
+      <ProductsForm />
+      <ProductCard />
+      <Cart />
     </section>
   );
 };
