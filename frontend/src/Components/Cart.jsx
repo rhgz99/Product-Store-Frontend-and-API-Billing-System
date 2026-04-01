@@ -1,8 +1,9 @@
 import { useCart } from "../hooks/useCart";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaMinus, FaPlus, FaWindowClose } from "react-icons/fa";
 
 const Cart = () => {
-const {productToCart, decreaseQty, increaseQty} = useCart()
+const {productToCart, decreaseQty, increaseQty, removeFromCart} = useCart()
+const total = productToCart.reduce((acc, product) => acc + Number(product.price) * product.qty, 0)
 
   return (
     <section className="cart">
@@ -20,10 +21,11 @@ const {productToCart, decreaseQty, increaseQty} = useCart()
               <FaMinus onClick={()=> decreaseQty(product)}/>
               <p>{product.qty}</p>
               <FaPlus onClick={()=> increaseQty(product)}/>
+              <FaWindowClose onClick={()=> removeFromCart(product)}/>
             </div>
-            
           </div>
         ))}
+        <p>Total: {total.toLocaleString()}</p> 
       </div>
     </section>
   );
