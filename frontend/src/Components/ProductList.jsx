@@ -26,14 +26,14 @@ const ProductCard = () => {
         : products.map((product) => (
             <div className="product_card" key={product.id}>
               <h2>{product.product_name}</h2>
-              <p>{product.price}</p>
+              <p>{Number(product.price).toLocaleString()}</p>
               <button
                 type="button"
                 onClick={() => {
                   addToCart({
                     id: product.id,
                     product_name: product.product_name,
-                    price: product.price,
+                    price: Number(product.price),
                   });
                 }}
               >
