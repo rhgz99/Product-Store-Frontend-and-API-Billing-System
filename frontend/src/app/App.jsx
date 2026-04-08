@@ -1,11 +1,16 @@
 import Home from "../pages/Home";
 import "../styles/index.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <section className="app">
-      <Home />
-    </section>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

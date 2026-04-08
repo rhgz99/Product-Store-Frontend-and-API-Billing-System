@@ -1,1 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
+
+@theme {
+  /*Colors*/
+  --color-primary: #845ec2;
+  --color-secondary: #9b89b3;
+  --color-background: #fcf7ff;
+  --color-soft: #fefedf;
+
+  /*Font*/
+  --font-primary: "Roboto", sans-serif;
+}
+.link {
+  @apply duration-600 hover:text-secondary active:text-soft;
+}
+.icon-link {
+  @apply cursor-pointer duration-600 hover:text-secondary active:text-soft;
+}
+.drop-menu-link{
+  @apply  hover:text-secondary active:text-soft border-b border-b-background
+}
