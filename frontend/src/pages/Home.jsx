@@ -1,4 +1,6 @@
 import Navbar from "../shared/components/Navbar";
+import ProductList from '../features/products/components/ProductList'
+import ProductForm from '../features/products/components/ProductForm'
 
 const Home = () => {
   return (
@@ -13,12 +15,14 @@ const Home = () => {
           <p className="text-white text-lg md:text-2xl">
             Discover the best products at unbeatable prices.
           </p>
-          <button className="bg-primary text-white px-6 py-3 rounded-md text-lg hover:bg-secondary transition">
+          <button className="bg-primary text-white px-6 py-3 rounded-md text-lg duration-600 hover:bg-secondary active:bg-primary/90">
             Shop Now
           </button>
           </div>
         </div>
       </section>
+      <ProductForm />
+      <ProductList />
     </>
   );
 };

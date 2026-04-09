@@ -1,28 +1,7 @@
-import { useState } from "react";
+import { useProducts } from "../hooks/useProducts.js";
 
 const Products_form = () => {
-  const [error, setError] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault(e);
-    try {
-      const response = await fetch("http://localhost:5000/api/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product_name: e.target.product_name.value,
-          price: e.target.price.value,
-        }),
-      });
-      const data = await response.json();
-      console.log(data);
-      
-    } catch (error) {
-      setError(error);
-    }
-  };
+  const { handleSubmit, error } = useProducts();
 
   return (
     <section className="products_form">

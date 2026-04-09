@@ -1,23 +1,10 @@
-import { useEffect, useState } from "react";
 import { useCart } from "../../cart/hooks/useCart";
+import { useProducts } from "../hooks/useProducts";
 
 const ProductCard = () => {
-  const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const { products } = useProducts();
+  const { error } = useProducts();
   const { addToCart } = useCart();
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/products");
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    fetchProduct();
-  }, []);
 
   return (
     <section className="product-list">
