@@ -1,13 +1,11 @@
 from flask import Flask
-from .extensions.extensions import cors
-from .modules.clients.routes import client_bp
-from .modules.products.routes import products_bp
+from app.extensions.extensions import cors
+from app.modules.users.routes import users_bp
 
 
 def create_app():
     app = Flask(__name__)
     cors.init_app(app)
-    app.register_blueprint(client_bp, url_prefix='/api')
-    app.register_blueprint(products_bp, url_prefix='/api')
+    app.register_blueprint(users_bp, url_prefix="/")
 
     return app
