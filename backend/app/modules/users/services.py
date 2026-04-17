@@ -21,9 +21,11 @@ def create_user(new_user):
         user = cur.fetchone()
         conn.commit()
         return user
+
     except Exception:
         conn.rollback()
         raise
+
     finally:
         cur.close()
         conn.close()
@@ -34,12 +36,9 @@ def get_users():
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
 
     try:
-        cur.execute("SELECT id, username, email FROM users")
-        users = cur.fetchall()
-        return users
-    except Exception:
-        conn.rollback()
-        raise
+        cur.execute("SELECT id, username, email FROM users ORDER BY ID")
+        return cur.fetchall()
+
     finally:
         cur.close()
         conn.close()
@@ -51,14 +50,8 @@ def get_user(id):
 
     try:
         cur.execute("SELECT id, username, email FROM users WHERE id = %s", (id,))
-        user = cur.fetchone()
-        if user is None:
-            return {"message": "User not found"}, 404
-        else:
-            return user
-    except Exception:
-        conn.rollback()
-        raise
+        return cur.fetchone()
+
     finally:
         cur.close()
         conn.close()
@@ -72,13 +65,12 @@ def delete_user(id):
         cur.execute("DELETE FROM users WHERE id = %s RETURNING id, username", (id,))
         user = cur.fetchone()
         conn.commit()
-        if user is None:
-            return {"message": "User not found"}, 404
-        else:
-            return user
+        return user
+
     except Exception:
         conn.rollback()
         raise
+
     finally:
         cur.close()
         conn.close()
@@ -100,13 +92,12 @@ def update_password(id, new_password):
         )
         updated_password = cur.fetchone()
         conn.commit()
-        if updated_password is None:
-            return {"message": "User not found"}, 404
-        else:
-            return updated_password
+        return updated_password
+
     except Exception:
         conn.rollback()
         raise
+
     finally:
         cur.close()
         conn.close()
