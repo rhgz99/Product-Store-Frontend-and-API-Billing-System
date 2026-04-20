@@ -7,11 +7,13 @@ const ProductCard = () => {
   const { addToCart } = useCart();
 
   return (
-    <section className="product-list">
+    <section className="bg-background py-10 flex flex-col justify-center items-center gap-5 font-primary">
+      <h2 className="text-3xl text-primary md:text-5xl">Feature products</h2>
+      <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-5 gap-5">
       {error
         ? "Error: reload the page"
         : products.map((product) => (
-            <div className="product_card" key={product.id}>
+            <div className="flex flex-col justify-center items-center m-5 gap-5" key={product.id}>
               <h2>{product.product_name}</h2>
               <p>{Number(product.price).toLocaleString()}</p>
               <button
@@ -28,6 +30,7 @@ const ProductCard = () => {
               </button>
             </div>
           ))}
+    </div>
     </section>
   );
 };

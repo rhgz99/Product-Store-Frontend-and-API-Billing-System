@@ -1,32 +1,82 @@
-# Product Store Frontend and API Billing System
+# Billing System - Product Store
 
-This project consists of a product store frontend built with React and Vite, and a backend API for billing system using Flask.
+A full-stack e-commerce billing system with a Flask backend API and React frontend application. This system handles product management, user management, shopping carts, and billing operations.
 
 ## Project Structure
 
-- `frontend/`: React application for the product store interface
-- `backend/`: Flask API for handling billing operations
+```
+billing-system/
+├── backend/          # Flask API - Billing system backend
+├── frontend/         # React + Vite - Product store UI
+└── README.md         # This file
+```
 
-## Getting Started
+## Tech Stack
 
-### Prerequisites
+### Backend
+- **Framework**: Flask 2.3.3 (Python)
+- **Database**: PostgreSQL
+- **Database Driver**: psycopg2
+- **CORS**: Flask-CORS
+- **Architecture**: Modular structure with separated routes and services
 
-- Node.js and npm for frontend
-- Python 3.x for backend
+### Frontend
+- **Framework**: React 19.2.4
+- **Build Tool**: Vite 8.0.1
+- **Routing**: React Router DOM 7.14.0
+- **Styling**: Tailwind CSS 4.2.2
+- **UI Icons**: Hero Icons, React Icons
+- **State Management**: Context API
 
-### Installation
+## Prerequisites
 
-1. Clone the repository
-2. Follow the setup instructions in each folder's README
+- Python 3.8 or higher
+- Node.js 16+ and npm
+- Git
 
-### Running the Application
+## Quick Start
 
-1. Start the backend API
-2. Start the frontend application
+### Backend Setup
+
+```bash
+cd backend
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+pip install -r requirements.txt
+python run.py
+```
+
+The API will run on `http://localhost:5000`
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The application will run on `http://localhost:5173`
 
 ## Features
 
-- Product store interface
-- Billing system API
-- Integration between frontend and backend
+- **Product Management**: Browse and manage products
+- **User Management**: User registration and authentication
+- **Shopping Cart**: Add/remove products, calculate totals
+- **Billing API**: Comprehensive endpoints for e-commerce operations
+
+## Project Status
+
+- ✅ Backend API structure established
+- ✅ Core endpoints implemented (Users, Products, Carts)
+- ⏳ Frontend being updated with latest API endpoints and database integration
+
+## Contributing
+
+For detailed information about each component, see:
+- [Backend README](./backend/README.md)
+- [Frontend README](./frontend/README.md)
 
