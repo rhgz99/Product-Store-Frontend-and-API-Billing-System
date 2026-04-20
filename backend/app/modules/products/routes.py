@@ -12,16 +12,12 @@ products_bp = Blueprint("products", __name__)
 
 @products_bp.post("/products")
 def create_product_route():
-    try:
-        new_product = request.get_json()
+    new_product = request.get_json()
 
-        if new_product is None:
-            return {"message": "No data provided"}, 400
+    if new_product is None:
+        return {"message": "No data provided"}, 400
 
-        return create_product(new_product), 201
-
-    except ValueError as e:
-        return {"message": str(e)}, 400
+    return create_product(new_product), 201
 
 
 @products_bp.get("/products")
@@ -51,18 +47,14 @@ def delete_product_route(id):
 
 @products_bp.put("/products/<int:id>")
 def update_product_route(id):
-    try:
-        product = request.get_json()
+    product = request.get_json()
 
-        if product is None:
-            return {"message": "No data provided"}, 400
+    if product is None:
+        return {"message": "No data provided"}, 400
 
-        updated_product = update_product(id, product)
+    updated_product = update_product(id, product)
 
-        if updated_product is None:
-            return {"message": "Product not found"}, 404
+    if updated_product is None:
+        return {"message": "Product not found"}, 404
 
-        return updated_product, 200
-
-    except ValueError as e:
-        return {"message": str(e)}, 400
+    return updated_product, 200

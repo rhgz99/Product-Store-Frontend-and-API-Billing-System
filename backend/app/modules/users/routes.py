@@ -6,16 +6,12 @@ users_bp = Blueprint("users", __name__)
 
 @users_bp.post("/users")
 def create_user_route():
-    try:
-        new_user = request.get_json()
+    new_user = request.get_json()
 
-        if new_user is None:
-            return {"message": "No data provided"}, 400
+    if new_user is None:
+        return {"message": "No data provided"}, 400
 
-        return create_user(new_user), 201
-
-    except ValueError as e:
-        return {"message": str(e)}, 400
+    return create_user(new_user), 201
 
 
 @users_bp.get("/users")
@@ -45,18 +41,14 @@ def delete_user_route(id):
 
 @users_bp.put("/users/<int:id>")
 def update_user_route(id):
-    try:
-        new_password = request.get_json()
+    new_password = request.get_json()
 
-        if new_password is None:
-            return {"message": "No data provided"}, 400
+    if new_password is None:
+        return {"message": "No data provided"}, 400
 
-        updated_password = update_password(id, new_password)
+    updated_password = update_password(id, new_password)
 
-        if updated_password is None:
-            return {"message": "User not found"}, 404
+    if updated_password is None:
+        return {"message": "User not found"}, 404
 
-        return updated_password, 200
-
-    except ValueError as e:
-        return {"message": str(e)}, 400
+    return updated_password, 200

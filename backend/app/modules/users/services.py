@@ -87,7 +87,7 @@ def update_password(id, new_password):
 
     try:
         cur.execute(
-            "UPDATE users SET password = %s WHERE id = %s RETURNING id, username",
+            "UPDATE users SET password = %s, updated_at = CURRENT_TIMESTAMP WHERE id = %s RETURNING id, username",
             (password, id),
         )
         updated_password = cur.fetchone()
