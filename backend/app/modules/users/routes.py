@@ -1,54 +1,51 @@
 from flask import Blueprint, request
-from .services import create_user, get_users, get_user, delete_user, update_password
+from .services import  get_users, get_user, delete_user, update_password
+from app.middlewares.auth_middleware import token_required
 
 users_bp = Blueprint("users", __name__)
 
 
-@users_bp.post("/users")
-def create_user_route():
-    new_user = request.get_json()
-
-    if new_user is None:
-        return {"message": "No data provided"}, 400
-
-    return create_user(new_user), 201
-
-
 @users_bp.get("/users")
+@token_required
 def get_users_route():
-    return get_users()
+    return get_users(), 200
 
 
-@users_bp.get("/users/<int:id>")
-def get_user_route(id):
-    user = get_user(id)
+@users_bp.get("/users/me")
+@token_required
+def get_user_route():
+    user_id = request.user_id
+    user = get_user(user_id)
 
-    if user is None:
+    if not user:
         return {"message": "User not found"}, 404
 
     return user, 200
 
 
-@users_bp.delete("/users/<int:id>")
-def delete_user_route(id):
-    deleted_user = delete_user(id)
+@users_bp.delete("/users/me")
+@token_required
+def delete_user_route():
+    user_id = request.user_id
+    deleted_user = delete_user(user_id)
 
-    if deleted_user is None:
+    if not deleted_user:
         return {"message": "User not found"}, 404
 
     return deleted_user, 200
 
 
-@users_bp.put("/users/<int:id>")
-def update_user_route(id):
+@users_bp.put("/users/me/password")
+def update_user_route():
+    user_id = request.user_id
     new_password = request.get_json()
 
-    if new_password is None:
+    if not new_password:
         return {"message": "No data provided"}, 400
 
-    updated_password = update_password(id, new_password)
+    updated_password = update_password(user_id, new_password)
 
-    if updated_password is None:
+    if not updated_password:
         return {"message": "User not found"}, 404
 
     return updated_password, 200
