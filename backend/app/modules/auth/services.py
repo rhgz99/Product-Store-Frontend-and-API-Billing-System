@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from app.extensions.db import get_connection
 
 
-key = os.environ.get("JWT_KEY")
+key = os.getenv("JWT_KEY")
 
 
 

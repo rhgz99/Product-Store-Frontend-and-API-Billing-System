@@ -4,7 +4,7 @@ from .services import login_user, register_user
 auth_bp = Blueprint("auth", __name__)
 
 
-@auth_bp.post("/register")
+@auth_bp.post("/auth/register")
 def register_route():
     register_data = request.get_json()
     username = register_data.get("username")
@@ -19,7 +19,7 @@ def register_route():
     return user, 201
 
 
-@auth_bp.post("/login")
+@auth_bp.post("/auth/login")
 def login_route():
     login_data = request.get_json()
     email = login_data.get("email")
