@@ -7,10 +7,29 @@
   --color-primary: #845ec2;
   --color-secondary: #9b89b3;
   --color-background: #fcf7ff;
+  --color-darkest: #453066;
   --color-soft: #fefedf;
+  --color-text-primary: #453066;
 
   /*Font*/
   --font-primary: "Roboto", sans-serif;
+
+  /* Typography */
+
+  /* Headings */
+  --text-h1-home-m: 2.25rem;   
+  --text-h1-home-d: 3.75rem; 
+  --text-h1-m: 1.65rem;   
+  --text-h1-d: 3.35rem;   
+
+  /* Paragraph */
+  --text-p-m: 1.125rem;   
+  --text-p-d: 1.5rem;     
+
+  /* Button text */
+  --text-btn-m: 1.125rem; 
+  --text-btn-d: 1.125rem;
+
 }
 .link {
   @apply duration-600 hover:text-secondary active:text-soft;
@@ -18,6 +37,16 @@
 .icon-link {
   @apply cursor-pointer duration-600 hover:text-secondary active:text-soft;
 }
-.drop-menu-link{
-  @apply  hover:text-secondary active:text-soft border-b border-b-background
+.drop-menu-link {
+  @apply hover:text-secondary active:text-soft border-b border-b-background;
+}
+.btn {
+  @apply px-6 py-3 border rounded cursor-pointer
+}
+.btn-primary {
+  @apply bg-primary text-white border-primary hover:bg-secondary hover:border-secondary active:bg-darkest active:border-darkest
+
+}
+.nav-btn {
+  @apply px-3 py-1 border rounded cursor-pointer
 }

@@ -46,16 +46,19 @@ const Navbar = () => {
             </Link>
           </li>
         </ul>
-        <a
-          href="#"
+        <Link
+          to="/"
           className=" text-4xl font-medium absolute left-1/2 -translate-x-1/2 link"
         >
           Store
-        </a>
+        </Link>
         <div className="flex gap-2 md:gap-5">
-          <MagnifyingGlassIcon className="size-6  right-5 md:inline icon-link" />
-          <UserIcon className="size-6  right-5 md:inline icon-link" />
-          <ShoppingBagIcon className="size-6  right-5 icon md:inline icon-link" />
+          <Link to="/sign-in">
+            <UserIcon className="size-6  right-5 md:inline icon-link" />
+          </Link>
+          <Link to="/cart">
+            <ShoppingBagIcon className="size-6  right-5 icon md:inline icon-link" />
+          </Link>
         </div>
 
         <div
