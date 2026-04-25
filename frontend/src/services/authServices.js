@@ -1,24 +1,42 @@
+import axios from "axios";
 
-export const getProfileService = async () => {
 
-}
-export const SignInService = async () => {
+const api_url = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_URL,
+});
 
-}
-export const SignUpService = async (user) => {
-    const response = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user)
-    })
-    const data = await response.json()
+api_url.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+
+export const SignInService = async (data) => {
+  
+  try {
+    const response = await api_url.post("/auth/login", data);
     
-    return data
-}
-export const SignOutService = async () => {
+    return response.data
+    
+  } catch (error) {
+    error
+  }
+};
 
-}
+export const SignUpService = async (data, reset, setRedirect, checkSession) => {
+  try {
+    const response = await api_url.post("/auth/register", data);
 
-
+    if (response.status === 201 || response.status === 200) {
+      reset();
+    }
+  } catch (error) {
+    error
+  }
+};
+export const SignOutService = async () => {};

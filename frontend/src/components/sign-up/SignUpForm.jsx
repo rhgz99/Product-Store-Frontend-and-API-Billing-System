@@ -13,8 +13,8 @@ const SignUpForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (user) => {
-    SignUpService(user)
+  const onSubmit = (data) => {
+    SignUpService(data, reset)
 
     reset();
   };

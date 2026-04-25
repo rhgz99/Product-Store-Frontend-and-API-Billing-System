@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { SignInService } from "../../services/authServices";
+import { useUser } from "../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
+  const navigate = useNavigate();
+  const { signIng } = useUser();
   const {
     register,
     handleSubmit,
@@ -11,15 +16,19 @@ const SignInForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const response = await SignInService(data);
+    signIng(response);
+
+    navigate("/", { replace: true });
 
     reset();
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" mt-8 mx-auto flex flex-col gap-4 lg:gap-6 max-w-125 text-left"
+      className="mt-8 mx-auto flex flex-col gap-4 lg:gap-6 max-w-125 text-left"
     >
       <input
         {...register("email", {

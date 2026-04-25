@@ -1,6 +1,4 @@
 import Navbar from "../components/navbar/Navbar";
-import ProductList from '../features/products/components/ProductList'
-import ProductForm from '../features/products/components/ProductForm'
 
 const Home = () => {
   return (

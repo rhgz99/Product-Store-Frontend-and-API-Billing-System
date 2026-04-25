@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useUser } from "../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 import {
   Bars3Icon,
   ChevronDoubleRightIcon,
@@ -7,13 +10,19 @@ import {
   UserIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
 
-const Navbar = () => {
-  const [nav, setNav] = useState(false);
+const NavbarAlt = () => {
+   const [nav, setNav] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
+  const { isAuthenticated, signOut } = useUser();
 
+  const navigateAfterSignOut = useNavigate();
   const handleNav = () => setNav(!nav);
-
+  const handleUserMenu = () => setUserMenu(!userMenu);
+  const handleSignOut = () => {
+    signOut();
+    navigateAfterSignOut("/sign-in", { replace: true });
+  };
   return (
     <header className="bg-primary h-20 text-background font-primary  w-full flex justify-between items-center duration-600">
       <nav className="flex justify-between items-center mx-4 w-full md:mx-8 md:max-w-462">
@@ -47,9 +56,65 @@ const Navbar = () => {
           Store
         </Link>
         <div className="flex gap-2 md:gap-5">
-          <Link to="/sign-in">
-            <UserIcon className="size-6  right-5 md:inline icon-link" />
-          </Link>
+          <div className="relative">
+            <UserIcon
+              className="size-7  icon-link z-10 "
+              onClick={() => handleUserMenu()}
+            />
+            {isAuthenticated() ? (
+              <ul
+                className={
+                  !userMenu
+                    ? "absolute w-30 mt-2  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
+                    : "absolute w-30 mt-2 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 bg-primary duration-500 ease-in-out"
+                }
+              >
+                <li
+                  onClick={() => handleSignOut()}
+                  className={
+                    userMenu
+                      ? "link relative right-0 duration-500 ease-in-out cursor-pointer"
+                      : "pointer-events-none relative right-1/3 opacity-0 duration-500 ease-in-out "
+                  }
+                >
+                  Sign Out
+                </li>
+              </ul>
+            ) : (
+              <ul
+                className={
+                  !userMenu
+                    ? "absolute w-30 mt-2  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
+                    : "absolute w-30 mt-2 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 bg-primary duration-500 ease-in-out"
+                }
+              >
+                <li>
+                  <Link
+                    to="/sign-in"
+                    className={
+                      userMenu
+                        ? "link relative right-0 duration-500 ease-in-out"
+                        : "pointer-events-none relative right-1/3 opacity-0 duration-500 ease-in-out"
+                    }
+                  >
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/sign-up"
+                    className={
+                      userMenu
+                        ? "link relative right-0 duration-500 ease-in-out"
+                        : "pointer-events-none relative right-4/6 opacity-0 duration-1000 ease-in-out"
+                    }
+                  >
+                    New account
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
           <Link to="/cart">
             <ShoppingBagIcon className="size-6  right-5 icon md:inline icon-link" />
           </Link>
@@ -97,4 +162,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAlt;
