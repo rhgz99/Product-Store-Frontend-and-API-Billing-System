@@ -2,8 +2,13 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { SignUpService } from "../../services/authServices";
-
+import { useUser } from "../../hooks/useUser";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const SignUpForm = () => {
+  const { isAccountCreated, setIsAccountCreated } = useUser();
+  const [creationError, setCreationError] = useState(null);
+  const navigateToLogin = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,11 +18,30 @@ const SignUpForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    SignUpService(data, reset)
+  const onSubmit = async (data) => {
+    setIsAccountCreated(false);
+    setCreationError(null);
 
-    reset();
+    const response = await SignUpService(data);
+
+    if (response.success) {
+      setIsAccountCreated(true);
+      reset();
+    } else {
+      setCreationError(response.message);
+    }
   };
+
+  useEffect(() => {
+    if (isAccountCreated) {
+      const timer = setTimeout(() => {
+        navigateToLogin("/sign-in", { replace: true });
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAccountCreated]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -28,7 +52,8 @@ const SignUpForm = () => {
           required: "Username is required",
           pattern: {
             value: /^[a-zA-Z0-9_]+$/,
-            message: "Username can only contain letters, numbers, and underscores",
+            message:
+              "Username can only contain letters, numbers, and underscores",
           },
           minLength: {
             value: 6,
@@ -39,7 +64,7 @@ const SignUpForm = () => {
             message: "Username must be no longer than 20 characters",
           },
         })}
-        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary ${
+        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary  disabled:opacity-70 disabled:cursor-not-allowed ${
           errors.username
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
@@ -48,6 +73,7 @@ const SignUpForm = () => {
         name="username"
         placeholder="Username"
         autoComplete="username"
+        disabled={isAccountCreated ? true : false}
       />
       {errors.username && (
         <p className=" text-red-500 -mt-2 ml-1 text-left">
@@ -70,7 +96,7 @@ const SignUpForm = () => {
             message: "Email is too long",
           },
         })}
-        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary ${
+        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
           errors.email
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
@@ -79,6 +105,7 @@ const SignUpForm = () => {
         name="email"
         placeholder="Email"
         autoComplete="email"
+        disabled={isAccountCreated ? true : false}
       />
       {errors.email && (
         <p className=" text-red-500 -mt-2 ml-1 text-left">
@@ -98,7 +125,7 @@ const SignUpForm = () => {
               message: "Password must be no longer than 20 characters",
             },
           })}
-          className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary ${
+          className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
             errors.email
               ? "border-red-500 outline-red-500 focus:outline-red-500"
               : ""
@@ -107,6 +134,7 @@ const SignUpForm = () => {
           name="password"
           placeholder="Password"
           autoComplete="current-password"
+          disabled={isAccountCreated ? true : false}
         />
         {errors.password && (
           <p className="text-red-500 -mt-2 ml-1 text-left">
@@ -114,9 +142,23 @@ const SignUpForm = () => {
           </p>
         )}
       </div>
-      <button className="btn btn-primary font-bold" type="submit">
+      <button
+        className="btn btn-primary font-bold"
+        type="submit"
+        disabled={isAccountCreated ? true : false}
+      >
         Sign Up
       </button>
+      <div className="text-center">
+        {isAccountCreated && (
+          <p className="text-valid">
+            Account created successfully. Redirecting...
+          </p>
+        )}
+        {!isAccountCreated && creationError && (
+          <p className="text-invalid">{creationError}</p>
+        )}
+      </div>
     </form>
   );
 };

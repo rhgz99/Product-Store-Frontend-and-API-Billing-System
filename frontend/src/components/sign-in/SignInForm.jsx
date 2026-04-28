@@ -3,9 +3,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SignInService } from "../../services/authServices";
 import { useUser } from "../../hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SignInForm = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(null)
   const { signIng } = useUser();
   const {
     register,
@@ -17,11 +19,15 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (data) => {
+
     const response = await SignInService(data);
-    signIng(response);
+    signIng(response?.data);
 
-    navigate("/", { replace: true });
-
+    if (response.success) {
+      navigate("/", { replace: true });
+    }else {
+      setError(response.message)
+    }
     reset();
   };
 
@@ -93,6 +99,7 @@ const SignInForm = () => {
       <button className="btn btn-primary font-bold" type="submit">
         Sign In
       </button>
+      {error && <p className="text-center text-invalid">{error}</p>}
     </form>
   );
 };

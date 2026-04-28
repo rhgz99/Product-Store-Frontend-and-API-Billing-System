@@ -4,6 +4,7 @@ import { UserContext } from "./UserContext";
 export const UserContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userToken, setUserToken] = useState({});
+  const [isAccountCreated, setIsAccountCreated] = useState(false)
   const [error, setError] = useState(null);
 
   const checkSession = () => {
@@ -26,10 +27,12 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const signIng = (data) => {
-    const { token } = data;
+    if (data?.token) {
+      const { token } = data;
 
     localStorage.setItem("token", token);
     setUserToken({ token });
+    }
   };
 
   const signOut = () => {
@@ -50,6 +53,8 @@ export const UserContextProvider = ({ children }) => {
         userToken,
         loading,
         error,
+        isAccountCreated,
+        setIsAccountCreated,
         checkSession,
         signIng,
         signOut,
