@@ -6,17 +6,21 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.post("/auth/register")
 def register_route():
-    register_data = request.get_json()
-    username = register_data.get("username")
-    email = register_data.get("email")
-    password = register_data.get("password")
+    try:
+        register_data = request.get_json()
+        username = register_data.get("username")
+        email = register_data.get("email")
+        password = register_data.get("password")
 
-    if not username or not email or not password:
-        return {"message": "Missing Fields"}, 400
+        if not username or not email or not password:
+            return {"message": "Missing Fields"}, 400
 
-    user = register_user(username, email, password)
+        user = register_user(username, email, password)
 
-    return user, 201
+        return user, 201
+    except Exception as e:
+        return {'message': str(e)}, 400
+
 
 
 @auth_bp.post("/auth/login")

@@ -1,13 +1,12 @@
 import os
 import jwt
 import bcrypt
-from psycopg2 import extras
+from psycopg2 import extras, errors
 from datetime import datetime, timezone, timedelta
 from app.extensions.db import get_connection
 
 
 key = os.getenv("JWT_KEY")
-
 
 
 def get_user_by_email(email):
@@ -40,6 +39,14 @@ def register_user(username, email, password):
         user = cur.fetchone()
         conn.commit()
         return user
+
+    except errors.UniqueViolation as e:
+        if "email" in str(e):
+            raise Exception("Email already exists")
+        elif "username" in str(e):
+            raise Exception("Username already exists")
+        else:
+            raise Exception("Duplicate value")
     except Exception:
         conn.rollback()
         raise
