@@ -64,7 +64,7 @@ const SignUpForm = () => {
             message: "Username must be no longer than 20 characters",
           },
         })}
-        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary  disabled:opacity-70 disabled:cursor-not-allowed ${
+        className={`p-2 border border-secondary rounded focus:outline-primary placeholder:text-secondary  disabled:opacity-70 disabled:cursor-not-allowed ${
           errors.username
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
@@ -96,7 +96,7 @@ const SignUpForm = () => {
             message: "Email is too long",
           },
         })}
-        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
+        className={`p-2 border border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
           errors.email
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
@@ -125,7 +125,7 @@ const SignUpForm = () => {
               message: "Password must be no longer than 20 characters",
             },
           })}
-          className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
+          className={`p-2 border border-secondary rounded focus:outline-primary placeholder:text-secondary disabled:opacity-70 disabled:cursor-not-allowed ${
             errors.email
               ? "border-red-500 outline-red-500 focus:outline-red-500"
               : ""

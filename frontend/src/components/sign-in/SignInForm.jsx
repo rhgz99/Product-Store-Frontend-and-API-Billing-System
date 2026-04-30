@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
   const { signIng } = useUser();
   const {
     register,
@@ -19,14 +19,13 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (data) => {
-
     const response = await SignInService(data);
     signIng(response?.data);
 
     if (response.success) {
       navigate("/", { replace: true });
-    }else {
-      setError(response.message)
+    } else {
+      setError(response.message);
     }
     reset();
   };
@@ -52,7 +51,7 @@ const SignInForm = () => {
             message: "Email is too long",
           },
         })}
-        className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary ${
+        className={`p-2 border border-secondary rounded focus:outline-primary placeholder:text-secondary ${
           errors.email
             ? "border-red-500 outline-red-500 focus:outline-red-500"
             : ""
@@ -80,7 +79,7 @@ const SignInForm = () => {
               message: "Password must be no longer than 20 characters",
             },
           })}
-          className={`p-2 border-2 border-secondary rounded focus:outline-primary placeholder:text-secondary ${
+          className={`p-2 border border-secondary rounded focus:outline-primary placeholder:text-secondary ${
             errors.email
               ? "border-red-500 outline-red-500 focus:outline-red-500"
               : ""
@@ -99,7 +98,9 @@ const SignInForm = () => {
       <button className="btn btn-primary font-bold" type="submit">
         Sign In
       </button>
-      {error && <p className="text-center text-invalid">{error}</p>}
+      <div className="text-center">
+        {error && <p className="text-center text-invalid">{error}</p>}
+      </div>
     </form>
   );
 };

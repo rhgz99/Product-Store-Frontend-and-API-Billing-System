@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useUser } from "../../hooks/useUser";
-import { useNavigate } from "react-router-dom";
 import {
   Bars3Icon,
   ChevronDoubleRightIcon,
@@ -11,35 +10,30 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 
-const Navbar = () => {
-  const [nav, setNav] = useState(false);
+const NavbarAlt = () => {
+   const [nav, setNav] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   const { isAuthenticated, signOut } = useUser();
 
   const navigateAfterSignOut = useNavigate();
+  const location = useLocation()
+  const isTransparent = location.pathname === '/'
   const handleNav = () => setNav(!nav);
   const handleUserMenu = () => setUserMenu(!userMenu);
   const handleSignOut = () => {
     signOut();
     navigateAfterSignOut("/sign-in", { replace: true });
   };
-
   return (
-    <header
-      className={
-        nav
-          ? "bg-primary h-20 text-background font-background fixed top-0 left-0 w-full z-10 md:flex md:justify-center duration-600"
-          : "bg-transparent h-20 text-background font-primary fixed top-0 left-0 w-full z-10 md:flex md:justify-center duration-600"
-      }
-    >
-      <nav className="flex justify-between items-center mx-4 my-6 md:w-full md:mx-8 md:max-w-462">
+    <header className="bg-primary py-4 text-background font-primary  w-full flex justify-between items-center duration-600">
+      <nav className="flex justify-between items-center mx-4 w-full lg:mx-8 lg:max-w-462">
         {nav ? (
           <XMarkIcon onClick={handleNav} className="size-8 left-5 md:hidden" />
         ) : (
           <Bars3Icon onClick={handleNav} className="size-8 left-5 md:hidden" />
         )}
 
-        <ul className="hidden text-xl uppercase gap-5 md:flex">
+        <ul className="hidden text-navbar-link font-semibold uppercase gap-5 md:flex">
           <li>
             <Link to="/" className="link">
               Home
@@ -58,18 +52,24 @@ const Navbar = () => {
         </ul>
         <Link
           to="/"
-          className=" text-4xl font-medium absolute left-1/2 -translate-x-1/2 link"
+          className=" text-h1-home font-bold absolute left-1/2 -translate-x-1/2 link"
         >
           Store
         </Link>
-        <div className="flex gap-8 md:gap-5">
+        <div className="flex gap-5">
           <div className="relative">
             <UserIcon
-              className={`size-7  icon-link z-10 ${isAuthenticated && 'text-valid'}`}
+              className="size-6  icon-link z-10 "
               onClick={() => handleUserMenu()}
             />
             {isAuthenticated() ? (
-              <ul className="absolute w-30 mt-2  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded">
+              <ul
+                className={
+                  !userMenu
+                    ? "absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
+                    : "absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 duration-500 ease-in-out"
+                }
+              >
                 <li
                   onClick={() => handleSignOut()}
                   className={
@@ -82,7 +82,13 @@ const Navbar = () => {
                 </li>
               </ul>
             ) : (
-              <ul className="absolute w-30 mt-2  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded">
+              <ul
+                className={
+                  !userMenu
+                    ? "absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
+                    : "absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 duration-500 ease-in-out"
+                }
+              >
                 <li>
                   <Link
                     to="/sign-in"
@@ -118,11 +124,11 @@ const Navbar = () => {
         <div
           className={
             nav
-              ? "bg-primary w-screen absolute top-20 left-0 h-screen transition-all duration-600"
-              : " bg-primary w-screen absolute top-20 -left-full opacity-0  h-screen transition-all duration-600 md:hidden"
+              ? "bg-primary w-screen absolute top-16 left-0 h-screen transition-all duration-600"
+              : " bg-primary w-screen absolute top-16 -left-full opacity-0  h-screen transition-all duration-600 md:hidden"
           }
         >
-          <ul className="flex flex-col mx-4 uppercase gap-5 text-background text-xl">
+          <ul className="flex flex-col mx-4 uppercase gap-5 text-background text-navbar-link">
             <li className="drop-menu-link border-t border-background">
               <Link
                 to="/"
@@ -157,4 +163,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAlt;

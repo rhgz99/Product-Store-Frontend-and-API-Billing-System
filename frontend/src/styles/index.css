@@ -18,19 +18,27 @@
   /* Typography */
 
   /* Headings */
-  --text-h1-home-m: 2.25rem;   
-  --text-h1-home-d: 3.75rem; 
-  --text-h1-m: 1.65rem;   
-  --text-h1-d: 3.35rem;   
+
+  /* h1 */
+  --text-h1-home: 2.25rem;
+  --text-h1: 1.5rem;
+  /* h2*/
+  --text-h2: 1.50rem;
+  /*h3*/
+  --text-h3: 1.25rem;
 
   /* Paragraph */
-  --text-p-m: 1.125rem;   
-  --text-p-d: 1.5rem;     
+  --text-p-home: 1.35rem;
+  --text-p-m: 1rem;
 
+  /*Navbar Link*/
+  --text-navbar-link: 1rem
   /* Button text */
-  --text-btn-m: 1.125rem; 
+  --text-btn-m: 1.125rem;
   --text-btn-d: 1.125rem;
-
+}
+body {
+  @apply bg-background;
 }
 .link {
   @apply duration-600 hover:text-secondary active:text-soft;
@@ -42,12 +50,11 @@
   @apply hover:text-secondary active:text-soft border-b border-b-background;
 }
 .btn {
-  @apply px-6 py-3 border rounded cursor-pointer disabled:opacity-70 disabled:bg-secondary disabled:cursor-not-allowed disabled:hover:bg-secondary
+  @apply px-4 py-2 border rounded cursor-pointer disabled:opacity-70 disabled:bg-secondary disabled:cursor-not-allowed disabled:hover:bg-secondary;
 }
 .btn-primary {
-  @apply bg-primary text-white border-primary hover:bg-secondary hover:border-secondary active:bg-darkest active:border-darkest
-
+  @apply bg-primary text-white border-primary hover:bg-secondary hover:border-secondary active:bg-darkest active:border-darkest;
 }
 .nav-btn {
-  @apply px-3 py-1 border rounded cursor-pointer
+  @apply px-3 py-1 border rounded cursor-pointer;
 }
