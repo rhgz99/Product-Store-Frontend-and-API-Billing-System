@@ -11,13 +11,13 @@ import {
 } from "@heroicons/react/24/solid";
 
 const NavbarAlt = () => {
-   const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   const { isAuthenticated, signOut } = useUser();
 
   const navigateAfterSignOut = useNavigate();
-  const location = useLocation()
-  const isTransparent = location.pathname === '/'
+  const location = useLocation();
+  const isTransparent = location.pathname === "/";
   const handleNav = () => setNav(!nav);
   const handleUserMenu = () => setUserMenu(!userMenu);
   const handleSignOut = () => {
@@ -25,7 +25,9 @@ const NavbarAlt = () => {
     navigateAfterSignOut("/sign-in", { replace: true });
   };
   return (
-    <header className="bg-primary py-4 text-background font-primary  w-full flex justify-between items-center duration-600">
+    <header
+      className={`py-4 text-background font-primary  w-full flex justify-between items-center duration-600 ${isTransparent ? "bg-transparent absolute " : "bg-primary"}`}
+    >
       <nav className="flex justify-between items-center mx-4 w-full lg:mx-8 lg:max-w-462">
         {nav ? (
           <XMarkIcon onClick={handleNav} className="size-8 left-5 md:hidden" />
@@ -66,8 +68,8 @@ const NavbarAlt = () => {
               <ul
                 className={
                   !userMenu
-                    ? "absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
-                    : "absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 duration-500 ease-in-out"
+                    ? "absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center  rounded p-2 duration-500 ease-in-out"
+                    : "absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center  rounded p-2 duration-500 ease-in-out"
                 }
               >
                 <li
@@ -85,8 +87,8 @@ const NavbarAlt = () => {
               <ul
                 className={
                   !userMenu
-                    ? "absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center rounded p-2 duration-500 ease-in-out"
-                    : "absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center rounded p-2 duration-500 ease-in-out"
+                    ? `absolute w-30 mt-4  left-1/2 lg:left-1/2 -translate-x-1/2  text-center ${isTransparent ? 'text-background' : 'text-primary'} rounded p-2 duration-500 ease-in-out `
+                    : `absolute w-30 mt-4 pb-5 left-1/2 lg:left-1/2 -translate-x-1/2 text-center ${isTransparent ? 'text-background' : 'text-primary'} rounded p-2 duration-500 ease-in-out`
                 }
               >
                 <li>
