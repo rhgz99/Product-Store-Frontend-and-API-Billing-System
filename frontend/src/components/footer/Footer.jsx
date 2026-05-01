@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-background  font-primary">
+    <footer className="bg-primary text-background font-primary mt-8">
       <div className="max-w-462 mx-auto grid grid-cols-1 px-6 py-12 gap-12 md:grid-cols-2 lg:grid-cols-3">
         
 

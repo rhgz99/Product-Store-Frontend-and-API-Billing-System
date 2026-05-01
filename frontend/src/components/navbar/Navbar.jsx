@@ -61,7 +61,7 @@ const NavbarAlt = () => {
         <div className="flex gap-5">
           <div className="relative">
             <UserIcon
-              className="size-6  icon-link z-10 "
+              className={`size-6  icon-link z-10 ${isAuthenticated && 'text-valid'}`}
               onClick={() => handleUserMenu()}
             />
             {isAuthenticated() ? (
